@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { generateFormValues, renderUI } from "./render-ui";
+import { fieldMeetsCondition, normalizeData } from "./filter";
 import { FieldType } from "./types";
 
 export function useRenderUI(formData: any[]) {
@@ -7,14 +7,15 @@ export function useRenderUI(formData: any[]) {
   const [formValues, setFormValues] = useState<Record<string, any>>({});
 
   useEffect(() => {
-    setFormValues(() => generateFormValues(formData));
+    setFormValues(() => normalizeData(formData));
+    console.log("formValues", formValues);
   }, [formData]);
 
   useEffect(() => {
-    setFields(formData.filter(renderUI(formValues)));
+    setFields(formData.filter(fieldMeetsCondition(formValues)));
   }, [formData, formValues]);
 
-  const fieldChanged = (field: FieldType, newValue: any) => {
+  const fieldChanged = (field: FieldType, newValue: FieldType) => {
     console.log("field", field, newValue);
     setFormValues(() => {
       return { ...formValues, [field.uid]: newValue };

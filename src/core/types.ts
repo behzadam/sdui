@@ -30,16 +30,19 @@ export type Condition = {
   value: FieldValue;
 };
 
+export type Logic = {
+  if: If;
+  conditions: Condition[];
+};
+
 export type FieldType = {
   uid: string;
   label: string;
+  name: string;
   type: string;
   value?: any;
   condition?: string;
-  logic?: {
-    if: If;
-    conditions: Condition[];
-  };
+  logic?: Logic;
   options?: OptionType[];
   onChange(uid: string, value: string): void;
 };

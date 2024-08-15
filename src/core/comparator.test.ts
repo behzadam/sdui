@@ -1,4 +1,4 @@
-import { compare } from "./comparetor";
+import { compare } from "./comparator";
 
 describe("compare function", () => {
   it("should return true for Contains condition when target contains other", () => {
