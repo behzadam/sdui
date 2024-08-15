@@ -1,17 +1,20 @@
 "use client";
 
-import { useRenderUI } from "@/core/use-render-ui";
 // Fetch from API
 import { OptionType } from "@/core/types";
 import { useEffect } from "react";
+
+// It may be fetch from API
 import formData from "../core/data.json";
+
+import { useRenderUI } from "./use-render-ui";
 
 export default function Home() {
   const { formValues, fields, fieldChanged } = useRenderUI(formData);
 
   useEffect(() => {
     console.log({ formValues, fields });
-  }, [formValues]);
+  }, [fields, formValues]);
 
   return (
     <main>
