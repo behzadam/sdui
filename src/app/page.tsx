@@ -13,7 +13,7 @@ export default function Home() {
   const { formValues, fields, fieldChanged } = useRenderUI(formData);
 
   useEffect(() => {
-    console.log({ formValues, fields });
+    console.log(formValues);
   }, [fields, formValues]);
 
   return (
@@ -78,7 +78,19 @@ export default function Home() {
                           onChange={(
                             e: React.ChangeEvent<HTMLInputElement>
                           ) => {
-                            fieldChanged(field, e.target.value);
+                            let newValue = null;
+                            if (e.target.checked) {
+                              newValue = [
+                                ...formValues[field.uid],
+                                e.target.value,
+                              ];
+                            } else {
+                              newValue = formValues[field.uid].filter(
+                                (value: string) => value !== e.target.value
+                              );
+                            }
+                            console.log("newValue", newValue);
+                            fieldChanged(field, newValue);
                           }}
                         />
                         {option.label}

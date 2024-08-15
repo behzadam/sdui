@@ -11,11 +11,11 @@ import { FieldType, FieldValues, If } from "./types";
  * @returns The default value for the field, either a string or an array of strings.
  */
 function getDefaultValue(field: FieldType): string | string[] {
-  // input, select, options
+  // input
   let defaultValue = field.value ?? "";
   if (!field.options) return defaultValue;
 
-  // checkboxes
+  // checkboxe, select, radio
   const defaultSelectedList: string[] = [];
   field?.options?.forEach((option) => {
     console.log("Opt:", { option });
