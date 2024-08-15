@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fieldMeetsCondition, normalizeData } from "../core/filter";
 import { FieldType } from "../core/types";
 
 export function useRenderUI(formData: any[]) {
-  // We generate the UI by filtering the fields.
-  const [fields, setFields] = useState<FieldType[]>(formData);
-
   // We need to keep track of the form values specially for Form Libraries
   // like Formik or React Hook Form.
   const [formValues, setFormValues] = useState<Record<string, any>>({});
+
+  // We generate the UI by filtering the fields.
+  const memoizedFields = useMemo(
+    () => formData.filter(fieldMeetsCondition(formValues)),
+    [formData, formValues]
+  );
 
   useEffect(() => {
     // We need to normalize the form data to make it easier to work with.
@@ -17,11 +20,8 @@ export function useRenderUI(formData: any[]) {
     setFormValues(() => normalizeData(formData));
   }, [formData]);
 
-  useEffect(() => {
-    setFields(formData.filter(fieldMeetsCondition(formValues)));
-  }, [formData, formValues]);
-
   const fieldChanged = (field: FieldType, newValue: string) => {
+    console.log("fieldChanged", { field, newValue });
     //  We need to update the form values.
     setFormValues(() => {
       return { ...formValues, [field.uid]: newValue };
@@ -30,7 +30,7 @@ export function useRenderUI(formData: any[]) {
 
   return {
     formValues,
-    fields,
+    fields: memoizedFields,
     fieldChanged,
   };
 }
