@@ -20,6 +20,7 @@ export function useRenderUI(formData: any[]) {
     setFormValues(() => normalizeData(formData));
   }, [formData]);
 
+  
   const fieldChanged = (field: FieldType, newValue: string) => {
     console.log("fieldChanged", { field, newValue });
     //  We need to update the form values.

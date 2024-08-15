@@ -40,6 +40,7 @@ export default function Home() {
                           name={field.uid}
                           value={option.value}
                           id={option.uid}
+                          defaultChecked={option.checked}
                           onChange={(
                             e: React.ChangeEvent<HTMLInputElement>
                           ) => {
@@ -55,7 +56,10 @@ export default function Home() {
             case "checkboxes":
               return (
                 <div key={field.uid}>
-                  <label className="block mb-3 text-sm font-semibold">
+                  <label
+                    className="block mb-3 text-sm font-semibold"
+                    htmlFor={field.uid}
+                  >
                     {field.label}
                   </label>
                   {field.options?.map((option: OptionType) => {
@@ -70,6 +74,7 @@ export default function Home() {
                           name={field.uid}
                           value={option.value}
                           id={option.uid}
+                          defaultChecked={option.checked}
                           onChange={(
                             e: React.ChangeEvent<HTMLInputElement>
                           ) => {

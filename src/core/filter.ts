@@ -1,7 +1,6 @@
 import { compare } from "./comparator";
 import { FieldType, FieldValues, If } from "./types";
 
-
 /**
  * Gets the default value for a given field.
  *
@@ -12,20 +11,19 @@ import { FieldType, FieldValues, If } from "./types";
  * @returns The default value for the field, either a string or an array of strings.
  */
 function getDefaultValue(field: FieldType): string | string[] {
+  // input, select, options
+  let defaultValue = field.value ?? "";
+  if (!field.options) return defaultValue;
+
   // checkboxes
   const defaultSelectedList: string[] = [];
-  // input, select, options
-  let defaultValue = field.value ?? null;
   field?.options?.forEach((option) => {
+    console.log("Opt:", { option });
     if (option.checked) {
-      if (field.type === "checkboxes") {
-        defaultSelectedList.push(option.value);
-      } else {
-        defaultValue = option.value;
-      }
+      defaultSelectedList.push(option.value);
     }
   });
-  return defaultValue || defaultSelectedList;
+  return defaultSelectedList;
 }
 
 /**
