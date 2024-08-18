@@ -7,6 +7,16 @@ import { useEffect } from "react";
 // It may be fetch from API
 import formData from "../core/data.json";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useRenderUI } from "./use-render-ui";
 
 export default function Home() {
@@ -17,14 +27,16 @@ export default function Home() {
   }, [fields, formValues]);
 
   return (
-    <main>
-      <h1>Form</h1>
-      <form>
+    <main className="max-w-md container mt-8">
+      <h1 className="mb-4 font-bold">
+        Server-Driven UI With Conditional Rendering
+      </h1>
+      <form className="border p-8 rounded-sm flex flex-col gap-4">
         {fields.map((field) => {
           switch (field.type) {
             case "options":
               return (
-                <div className="mb-8" key={field.uid}>
+                <div key={field.uid}>
                   <label className="block mb-3 text-sm font-semibold">
                     {field.label}
                   </label>
@@ -56,12 +68,7 @@ export default function Home() {
             case "checkboxes":
               return (
                 <div key={field.uid}>
-                  <label
-                    className="block mb-3 text-sm font-semibold"
-                    htmlFor={field.uid}
-                  >
-                    {field.label}
-                  </label>
+                  <label htmlFor={field.uid}>{field.label}</label>
                   {field.options?.map((option: OptionType) => {
                     return (
                       <label
@@ -100,38 +107,39 @@ export default function Home() {
               );
             case "select":
               return (
-                <div role="select" key={field.uid}>
-                  <label className="block mb-3 text-sm font-semibold">
-                    {field.label}
-                  </label>
-                  <select
-                    id={field.uid}
-                    name={field.uid}
-                    defaultValue={field.value}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                      fieldChanged(field, e.target.value);
-                    }}
-                  >
+                <Select
+                  name={field.uid}
+                  key={field.uid}
+                  defaultValue={field.value}
+                  onValueChange={(e) => {
+                    // No any form to show
+                    fieldChanged(field, e);
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent>
                     {field.options?.map((option: OptionType) => {
                       return (
-                        <option key={option.uid} value={option.value}>
+                        <SelectItem key={option.uid} value={option.value}>
                           {option.label}
-                        </option>
+                        </SelectItem>
                       );
                     })}
-                  </select>
-                </div>
+                  </SelectContent>
+                </Select>
               );
             default:
               return (
-                <div className="mb-6" key={field.uid}>
-                  <label
-                    className="block mb-3 text-sm font-semibold"
+                <div key={field.uid}>
+                  <Label
+                    className="block text-sm font-semibold"
                     htmlFor={field.uid}
                   >
                     {field.label}
-                  </label>
-                  <input
+                  </Label>
+                  <Input
                     type={field.type}
                     name={field.uid}
                     id={field.uid}
@@ -143,7 +151,9 @@ export default function Home() {
               );
           }
         })}
-        <button type="submit">Submit</button>
+        <Button variant="default" type="submit">
+          Submit
+        </Button>
       </form>
     </main>
   );
