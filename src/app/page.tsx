@@ -89,7 +89,6 @@ export default function Home() {
                                 (value: string) => value !== e.target.value
                               );
                             }
-                            console.log("newValue", newValue);
                             fieldChanged(field, newValue);
                           }}
                         />
