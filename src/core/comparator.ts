@@ -57,17 +57,19 @@ function isLessThanOrEqual(target: FieldValue, other: FieldValue): boolean {
 }
 
 function compare(cond: Comparator, target: FieldValue, other: FieldValue) {
-  if (cond === "Contains") return isContains(target, other);
-  if (cond === "EqualTo") return isEqual(target, other);
-  if (cond === "GreaterThan") return isGreaterThan(target, other);
-  if (cond === "GreaterThanOrEquals")
-    return isGreaterThanOrEquals(target, other);
-  if (cond === "IsEmpty") return isEmpty(target);
-  if (cond === "IsNotEmpty") return !isEmpty(target);
-  if (cond === "IsNotContaining") return !isContains(target, other);
-  if (cond === "LessThan") return isLessThan(target, other);
-  if (cond === "LessThanOrEquals") return isLessThanOrEqual(target, other);
-  if (cond === "NotEqualTo") return !isEqual(target, other);
+  switch (cond) {
+    case "Contains": return isContains(target, other);
+    case "EqualTo": return isEqual(target, other);
+    case "GreaterThan": return isGreaterThan(target, other);
+    case "GreaterThanOrEquals": return isGreaterThanOrEquals(target, other);
+    case "IsEmpty": return isEmpty(target);
+    case "IsNotEmpty": return !isEmpty(target);
+    case "IsNotContaining": return !isContains(target, other);
+    case "LessThan": return isLessThan(target, other);
+    case "LessThanOrEquals": return isLessThanOrEqual(target, other);
+    case "NotEqualTo": return !isEqual(target, other);
+    default: throw new Error(`Unsupported comparator: ${cond}`);
+  }
 }
 
 export { compare };
