@@ -21,7 +21,6 @@ export function useRenderUI(formData: any[]) {
   }, [formData]);
 
   const fieldChanged = (field: FieldType, newValue: string) => {
-    console.log("Field changed:", newValue);
     setFormValues(() => {
       return { ...formValues, [field.uid]: newValue };
     });
