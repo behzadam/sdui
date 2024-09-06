@@ -1,6 +1,6 @@
 # SDUI: Server-Driven UI with Conditional Form Builder
 
-A React & Next.js project demonstrating the implementation of Server-Driven UI with a dynamic form builder based on a JSON configuration file. [What is Server-Driven UI?](https://www.judo.app/blog/server-driven-ui)
+A React & Next.js project demonstrating the implementation of Server-Driven UI with a dynamic form builder based on a JSON configuration file. [What is Server-Driven UI?](https://www.judo.app/blog/server-driven-ui) | [Watch this video (in Persian)](https://youtu.be/D7nj1oK3YwQ?si=4ZQVo_6puffjGRhz)
 
 ## Features
 
